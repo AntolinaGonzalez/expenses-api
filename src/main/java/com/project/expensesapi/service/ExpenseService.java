@@ -16,7 +16,7 @@ public class ExpenseService {
     @Autowired
     private ExpensesTrackRepository expensesTrackRepository;
 
-    public ExpenseDTO createExpense(final ExpenseDTO  expenseDTO) {
+    public ExpenseDTO createExpense(final ExpenseDTO expenseDTO) {
         ExpensesTrack expensesTrack = this.expenseMapper.mapToExpenseTrack(expenseDTO);
         this.expensesTrackRepository.save(expensesTrack);
         return expenseDTO;
