@@ -14,7 +14,7 @@
 	<name>expenses-api</name>
 	<description>https://github.com/AntolinaGonzalez/expenses-api.git</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.30</org.projectlombok.version>	</properties>
 	<dependencies>
