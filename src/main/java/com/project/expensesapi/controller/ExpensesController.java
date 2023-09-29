@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -25,8 +26,10 @@ public class ExpensesController {
     }
 
     @GetMapping
-    public List<ExpensesResponseDTO> getExpenses(){
-        return this.expenseService.getExpenses();
+    public List<ExpensesResponseDTO> getExpenses
+            (@RequestParam(value = "month", required = false, defaultValue = "") String month,
+             @RequestParam(value = "type", required = false, defaultValue = "") String type) {
+        return this.expenseService.getExpenses(month, type);
     }
 
 }
