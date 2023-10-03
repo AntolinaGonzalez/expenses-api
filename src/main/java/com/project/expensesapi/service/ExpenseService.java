@@ -30,36 +30,44 @@ public class ExpenseService {
     }
 
     public List<ExpensesResponseDTO> getExpenses(String month, String type) {
-        if(month.isEmpty() && type.isEmpty()){
-            return  getExpensesResponseDTOS();
+        if (month.isEmpty() && type.isEmpty()) {
+            return getExpensesResponseDTOS();
         } else if (month.isEmpty()) {
-            return  getExpensesResponseByType(type);
+            return getExpensesResponseByType(type);
+        } else if (type.isEmpty()) {
+            return getExpensesResponseByMonth(month);
         } else {
-            return  getExpensesResponseByMonth(month);
+            return getExpensesResponseByTypeAndMonth(type, month);
         }
     }
 
     @NotNull
     private List<ExpensesResponseDTO> getExpensesResponseByType(String type) {
-        List<ExpensesTrack> expensesTracks=  this.expensesTrackRepository.getExpensesTrackByType(type);
+        List<ExpensesTrack> expensesTracks = this.expensesTrackRepository.getExpensesTrackByType(type);
         return getExpensesResponseDTOS(expensesTracks);
     }
 
     @NotNull
     private List<ExpensesResponseDTO> getExpensesResponseByMonth(String month) {
-        List<ExpensesTrack> expensesTracks=  this.expensesTrackRepository. getExpensesTrackByMonth(month);
+        List<ExpensesTrack> expensesTracks = this.expensesTrackRepository.getExpensesTrackByMonth(month);
+        return getExpensesResponseDTOS(expensesTracks);
+    }
+
+    @NotNull
+    private List<ExpensesResponseDTO> getExpensesResponseByTypeAndMonth(String type, String month) {
+        List<ExpensesTrack> expensesTracks = this.expensesTrackRepository.getExpensesTrackByTypeAndMonth(type, month);
         return getExpensesResponseDTOS(expensesTracks);
     }
 
     @NotNull
     private List<ExpensesResponseDTO> getExpensesResponseDTOS() {
-        List<ExpensesTrack> expensesTracks=  this.expensesTrackRepository.findAll();
+        List<ExpensesTrack> expensesTracks = this.expensesTrackRepository.findAll();
         return getExpensesResponseDTOS(expensesTracks);
     }
 
     @NotNull
     private static List<ExpensesResponseDTO> getExpensesResponseDTOS(List<ExpensesTrack> expensesTracks) {
-        List<ExpensesResponseDTO> expensesResponseDTOS =  new ArrayList<>(expensesTracks.size());
+        List<ExpensesResponseDTO> expensesResponseDTOS = new ArrayList<>(expensesTracks.size());
         if (!expensesTracks.isEmpty()) {
             for (ExpensesTrack expensesTrack : expensesTracks) {
                 ExpensesResponseDTO expensesResponseDTO = new ExpensesResponseDTO();
